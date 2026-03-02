@@ -152,7 +152,7 @@ function App() {
 }
 
 const styles = {
-  container: { fontFamily: 'sans-serif', backgroundColor: '#f4f7f6', minHeight: '100vh' },
+  container: { fontFamily: 'sans-serif', backgroundColor: '#f4f7f6', minHeight: '100vh', alignItems: 'center' },
   header: { textAlign: 'center', marginBottom: '30px' },
   controls: { display: 'flex', justifyContent: 'center', marginBottom: '40px', padding: '0 20px' },
   input: { padding: '12px', borderRadius: '12px', border: '1px solid #ddd', outline: 'none' },
