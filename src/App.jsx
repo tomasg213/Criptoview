@@ -5,7 +5,7 @@ import CryptoCard from './Cryptocard.jsx';
 function App() {
   const [listaCriptos, setListaCriptos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
-  const [cargando, setCargando] = useState(true);
+  const [setCargando] = useState(true);
   
   // NUEVOS ESTADOS PARA EL MODAL
   const [seleccionada, setSeleccionada] = useState(null);
@@ -26,7 +26,7 @@ function App() {
       }
     };
     traerDatos();
-  }, []);
+  }, );
 
   // Función para abrir modal y traer histórico
   const manejarClickTarjeta = async (cripto) => {
@@ -49,10 +49,7 @@ function App() {
     setSeleccionada(null);
     setHistorico([]);
   };
-  
-  if (cargando) {
-    return <p>Cargando...</p>;
-  }
+
 
   const criptosFiltradas = listaCriptos.filter((cripto) =>
     cripto.name.toLowerCase().includes(busqueda.toLowerCase())
@@ -60,7 +57,7 @@ function App() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.header}>CryptoDash <span style={{color: '#6366f1'}}>2026</span></h1>
+      <h1 style={styles.header}>CryptoView <span style={{color: '#6366f1'}}>2026</span></h1>
 
       <div style={styles.controls}>
         <input
