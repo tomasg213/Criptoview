@@ -5,7 +5,7 @@ import CryptoCard from './Cryptocard.jsx';
 function App() {
   const [listaCriptos, setListaCriptos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
-  const [setCargando] = useState(true); // Corregido: antes estaba [setCargando]
+  const [setCargando] = useState(true);
   const [seleccionada, setSeleccionada] = useState(null);
   const [historico, setHistorico] = useState([]);
 
