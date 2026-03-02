@@ -1,52 +1,78 @@
-import React from 'react';
-
-const CryptoCard = ({ nombre, precio, imagen }) => {
-  const isHighValue = precio > 1000;
-
-  const cardStyle = {
-    display: 'inline-flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '24px',
-    margin: '12px',
-    width: '200px',
-    backgroundColor: '#ffffff',
-    borderRadius: '16px',
-    // Sombra suave para el look moderno
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
-    border: '1px solid #f0f0f0',
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    textAlign: 'center',
-    transition: 'transform 0.2s ease'
-  };
-
-  const priceStyle = {
-    fontSize: '1.25rem',
-    fontWeight: '700',
-    margin: '8px 0 0',
-    // Tu lógica original de color
-    color: isHighValue ? '#10b981' : '#ef4444', 
-  };
-
-  const nameStyle = {
-    fontSize: '0.9rem',
-    color: '#6b7280',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    margin: '12px 0 4px'
-  };
+function CryptoCard({ nombre, precio, imagen, esFavorito }) {
+  // Lógica para el color del precio (puedes mantener la tuya o usar esta)
+  const esCaro = precio > 1000;
 
   return (
-    <div style={cardStyle}>
-      <img 
-        src={imagen} 
-        alt={nombre} 
-        style={{ width: '40px', height: '40px', borderRadius: '50%' }} 
-      />
-      <h2 style={nameStyle}>{nombre}</h2>
-      <p style={priceStyle}>${precio.toLocaleString()}</p>
+    <div style={cardStyles.container}>
+      {/* 🌟 LA ESTRELLA DE FAVORITO */}
+      {esFavorito && (
+        <div style={cardStyles.starBadge}>
+          ⭐
+        </div>
+      )}
+
+      <div style={cardStyles.header}>
+        <img src={imagen} alt={nombre} style={cardStyles.icon} />
+        <h3 style={cardStyles.title}>{nombre}</h3>
+      </div>
+      
+      <p style={{ 
+        ...cardStyles.price, 
+        color: esCaro ? '#10b981' : '#ef4444' 
+      }}>
+        ${precio.toLocaleString()}
+      </p>
     </div>
   );
+}
+
+const cardStyles = {
+  container: {
+    backgroundColor: '#fff',
+    padding: '20px',
+    borderRadius: '16px',
+    boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+    width: '200px',
+    position: 'relative', // Necesario para posicionar la estrella
+    cursor: 'pointer',
+    transition: 'transform 0.2s',
+    border: '1px solid #e5e7eb'
+  },
+  starBadge: {
+    position: 'absolute',
+    top: '-10px',
+    right: '-10px',
+    backgroundColor: '#fff',
+    borderRadius: '50%',
+    width: '30px',
+    height: '30px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+    fontSize: '14px'
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '10px'
+  },
+  icon: {
+    width: '45px',
+    height: '45px'
+  },
+  title: {
+    margin: 0,
+    fontSize: '1rem',
+    color: '#374151'
+  },
+  price: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
+    marginTop: '15px'
+  }
 };
 
 export default CryptoCard;
