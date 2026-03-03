@@ -8,7 +8,6 @@ export default function CryptoGrid({ criptos, misFavoritos, manejarClickTarjeta,
                 <div
                     key={cripto.id}
                     onClick={() => manejarClickTarjeta(cripto)}
-                    style={{ width: esMovil ? '100%' : 'auto' }}
                 >
                     <CryptoCard
                         nombre={cripto.name}

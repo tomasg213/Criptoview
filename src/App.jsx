@@ -3,6 +3,7 @@ import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import CryptoGrid from './components/CryptoGrid';
 import CryptoModal from './components/CryptoModal';
+import LoginModal from './components/LoginModal';
 import { useAuth } from './hooks/useAuth';
 import { useFavorites } from './hooks/useFavorites';
 import { useCryptoData } from './hooks/useCryptoData';
@@ -11,8 +12,9 @@ import { styles } from './constants/styles';
 function App() {
   const [busqueda, setBusqueda] = useState("");
   const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const { session, signOut, signInWithGoogle } = useAuth();
+  const { session, signOut, signInWithEmail } = useAuth();
   const { misFavoritos, toggleFavorito } = useFavorites(session);
   const {
     listaCriptos,
@@ -48,7 +50,7 @@ function App() {
       <Header
         email={session?.user?.email}
         onSignOut={signOut}
-        onSignIn={signInWithGoogle}
+        onOpenLogin={() => setShowLoginModal(true)}
         esMovil={esMovil}
       />
 
@@ -72,6 +74,12 @@ function App() {
         toggleFavorito={toggleFavorito}
         misFavoritos={misFavoritos}
         esMovil={esMovil}
+      />
+
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSignIn={signInWithEmail}
       />
     </div>
   );

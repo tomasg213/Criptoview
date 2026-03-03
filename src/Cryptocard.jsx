@@ -15,10 +15,10 @@ function CryptoCard({ nombre, precio, imagen, esFavorito }) {
         <img src={imagen} alt={nombre} style={cardStyles.icon} />
         <h3 style={cardStyles.title}>{nombre}</h3>
       </div>
-      
-      <p style={{ 
-        ...cardStyles.price, 
-        color: esCaro ? '#10b981' : '#ef4444' 
+
+      <p style={{
+        ...cardStyles.price,
+        color: esCaro ? '#10b981' : '#ef4444'
       }}>
         ${precio.toLocaleString()}
       </p>
@@ -29,14 +29,19 @@ function CryptoCard({ nombre, precio, imagen, esFavorito }) {
 const cardStyles = {
   container: {
     backgroundColor: '#fff',
-    padding: '20px',
-    borderRadius: '16px',
-    boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
-    width: '200px',
-    position: 'relative', // Necesario para posicionar la estrella
+    padding: '24px 16px',
+    borderRadius: '20px',
+    boxShadow: '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06)',
+    width: '100%',
+    boxSizing: 'border-box',
+    position: 'relative',
     cursor: 'pointer',
-    transition: 'transform 0.2s',
-    border: '1px solid #e5e7eb'
+    transition: 'all 0.2s ease-in-out',
+    border: '1px solid #f3f4f6',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   starBadge: {
     position: 'absolute',

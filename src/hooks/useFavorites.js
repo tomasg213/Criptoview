@@ -24,26 +24,39 @@ export function useFavorites(session) {
 
     const toggleFavorito = async (coinId) => {
         if (!session) {
-            alert("Inicia sesión para guardar favoritos");
+            alert("Inicia sesión con tu correo para guardar tus favoritas.");
             return;
         }
 
-        const { data: existente } = await supabase
-            .from('favoritos')
-            .select('*')
-            .eq('user_id', session.user.id)
-            .eq('coin_id', coinId)
-            .single();
-
-        if (existente) {
-            await supabase.from('favoritos').delete().eq('id', existente.id);
-            setMisFavoritos(misFavoritos.filter(id => id !== coinId));
-        } else {
-            const { error } = await supabase
+        try {
+            const { data: existente, error: fetchError } = await supabase
                 .from('favoritos')
-                .insert([{ user_id: session.user.id, coin_id: coinId }]);
+                .select('*')
+                .eq('user_id', session.user.id)
+                .eq('coin_id', coinId)
+                .maybeSingle();
 
-            if (!error) setMisFavoritos([...misFavoritos, coinId]);
+            if (fetchError) throw fetchError;
+
+            if (existente) {
+                const { error: deleteError } = await supabase
+                    .from('favoritos')
+                    .delete()
+                    .eq('id', existente.id);
+
+                if (deleteError) throw deleteError;
+                setMisFavoritos(misFavoritos.filter(id => id !== coinId));
+            } else {
+                const { error: insertError } = await supabase
+                    .from('favoritos')
+                    .insert([{ user_id: session.user.id, coin_id: coinId }]);
+
+                if (insertError) throw insertError;
+                setMisFavoritos([...misFavoritos, coinId]);
+            }
+        } catch (error) {
+            console.error("Error toggling favorite:", error.message);
+            alert("Hubo un error al guardar tu favorito. Verifica tu conexión.");
         }
     };
 
